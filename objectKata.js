@@ -69,3 +69,33 @@ if (moreComplicatedObject.pullInValue === TheBigQuestion){
 }else{
   console.log("It's a value: " + moreComplicatedObject.pullInValue);
 }
+
+//Exploration of JavaScript's this
+//in a function:
+var aFunctionWithThis = function(){
+  return this;
+}
+//returns the window object
+console.log("Just a function makes this: " + aFunctionWithThis());
+
+//in an object:
+var anObjectWithThis = {
+  referencingAFunctionWithThis: aFunctionWithThis,
+  containingAFunctionWithThis: function() {
+    return this;
+  }
+}
+console.log("A function referenced in an Object: " + anObjectWithThis.referencingAFunctionWithThis());
+console.log("A function created in an Object: " + anObjectWithThis.containingAFunctionWithThis());
+
+//from an event:
+document.getElementById("headingOne").onmouseover=function() {
+    this.style.color = "red";
+    console.log("A function in an event listener: " + this);
+};
+document.getElementById("headingOne").addEventListener("mouseout", mouseOut);
+
+function mouseOut() {
+    this.style.color = "black";
+    console.log("A function in an event listener: " + this);
+}
